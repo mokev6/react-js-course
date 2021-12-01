@@ -1,83 +1,145 @@
-npx create-react-app my-app : creation d'une app React
+npm install react-router-dom@5
 
-npm install react-redux
+	- "5" = version de la librairie
+	- il y la version 6
 
-npm install @reduxjs/toolkit
+Activation de la librairie:
+	- dans App.js
 
-2) creer un repertoire store
-3) store >
-   - index.js => fichier qui contient les données du store
-   - car-slice.js
-   - UI-slice.js : les slices sont les fichiers qui contient les reducer propre à des component
+    ```
+		import {Route} from 'reac-router-dom'
 
-4) dans chaque slice
-	appeler createSlice de react toolkit
-	et l'initialiser avec l'etat de depart
+		<Route path='/welcome'>
+			<Welcome />
+		<Route/>
+    ```
+
+    
+	- dans index.js : wrapper <App /> par <BrowserRoute> <App/><:BrowserRoute>
+		- active les routeurs
+
+Le composants doit etre mis dans un repertoire que l on peu tnommer : pages
+pr faire la difference avec les composants normaux que l on met dans le repertoire composant
 
 ```
-	import {createSlice} from '@reduxjs/toolkit';
+- <a href='/welcome' /> : affichera un lien et executera le composant Welcome
+```
+
+/!\ : si on regarde le network du browser on verra qu une nouvelle requete est lancée ce qui signifie qu on cree une nouvelle
+application => on perd tout nos etats
+
+Comment faire : utiliser Link de import {Link} from 'react-router-dom' : react le fait pr nous
+	- ```
+     <li><Link to='/welcome' > Welcome </Link></li> 
+     ```
+
+	- Link = anchor tag
+	- /!\: wrapper Link par <li>
+
+
+Single page application: si on ouvre le dev tool du browser et qu on navigue dans l appli on ne voit pas de requete dans le network
+du coup on ne perd pas les etats et cela donne l illusion au user qu une nouvelle page a ete ouverte
+
+```
+
+import {NavLink} from 'react-router-dom' : pour highleted le link active
+- <NavLink to='/welcome' activeClassName={}> Welcome </NavLink> et ajouter une classe css dans la propriete activeClassName
+
+```
+
+Variable Dynamique dans le path 
+```
+	- <NavLink to='/product/:productId'> <Product/></NavLink> : utiliser les deux points pr dire que ce qui suit est dynamique
+```
+
+Comment acceder a la variable dynamique du path dans le component?
+
+	- dans le composant import {useParams} from 'react-router-dom' : utilisation d'un hook fournit par la librairie
+    - const params = useParams();
+	- const productId = params.productId => utiliser le mm nom que la variable 
+
+Dans App.js
+
+    ```
+	<Route path='/products'>
+		<Product />
+	<Route/>
+	<Route path='/products/:productId'>
+		<Details />
+	<Route/>
+    ```
+
+	- quand je clique un produit, le detail s affiche aussi car pour react-router il va chercher tous les chemins commencant par /products
+	- idem pour l inverse, si je rentre l url /product/p1, j aurai les produit affichées et le detail => ce qu eje ne veux pas
+
+Des fois c est ce qu on veut mais Comment regler ca si on ne veut pas ?
+	- utiliser <Switch />
+
+    ```
+
+	<Switch>
+		<Route path='/products'>
+			<Product />
+		<Route/>
+		<Route path='/products/:productId'>
+			<Details />
+		<Route/>
+	</Switch>
+
+    ```
+
+ Pb ? si je rentre l url /product/1 => affcihera les produits et non le detail car React cherche le premier chemin commencant par
+	/products
+
+Je peux:
+	- inverser
+
+    ```
+
+		<Switch>
+			<Route path='/products/:productId'>
+				<Details />
+			<Route/>
+			<Route path='/products'>
+				<Product />
+			<Route/>
+	    </Switch>
+
+    ```
 	
-		const uiSlice = createSlice({
-			name: 'ui',
-			initialState: {cartIsVisible: false}
-			reducers: {
-				toggle(state) {
-					state.cartIsVisible = ! state.cartIsVisible;
-				}
-			}
-		})
-		
-		export const UIAction = uiSlice.actions;
-		export default uiSlice;
-```
-5) creer le store (index.js)et ajouter le reducer de la slice precedente
-```
-    import {configureStore} from '@reduxjs/toolkit';
-    import uiSlice from 
+OU utiliser l'instruction exact qui dit aller /products et null par ailleurs
+	
+	<Switch>
+		<Route path='/products' exact>
+			<Product />
+		<Route/>
+		<Route path='/products/:productId'>
+			<Details />
+		<Route/>
+	</Switch>
 
-    const store = configureStore({
-    reducer:{ui: uiSlice.reducer}
-})
-export default store;
-```
-6) ajouter le store dans le index.js du root de l'appli
-```
-    import {Provider} from 'react-redux'
-    import store from 
+je peux mettre des Route dans n'importe quelle composant
 
-    <Provider store = {store}> <App/> </Provider>
+Rediriger un user : comment rediriger si user rentre dans l'url juste slah (/)
+	- utiliser le composant Redirect de react-router-dom
 
-```
-7) utiliser les actions dans un composant
-```
-    import {uiAction} from 
-    import {useDispatch} from 'react-redux'
+    ```
 
-    const dispatch = useDispatch()
+	import {Route, Redirect} from 'reac-router-dom'
 
-    const XXX = () => {
-        dispatch(uiAction.toggle()); => appelle de la fonction du reducer
-    }
-```
-8) acceder a une variable d etat du store depuis un composant
+	<Route path='/' exact>
+		<Redirect to='/welcome' />
+	<Route/>
+	<Route path='/welcome'>
+		<Welcome />
+	<Route/>
 
-utiliser useSelector et 
-const test = useSelector(state => state.ui.cartIsVisible} tjr utilise state puis le nom donné au reducer dans le store, puis la variable
+    ```
 
-/!\ : dans les slice, si je souhaite creer un reducer qui recoit des données, ajouter un parametre nommé action. il contient un attribut appelé payload
+Route peut etre utiliser dans un composant normal
 
-```
-ex: createSlice({
-name: 'cart',
-initialState: {
-	items: []
-}
-reducers: {
-	addItem(state, action) {
-		
-	},
-	remove () {
-	}
-}
-})
-```
+	const param = useParams();
+	const id = param.productId
+	<Route path={`/products/${id}/comments`}>
+			<Comment />
+	<Route/>
