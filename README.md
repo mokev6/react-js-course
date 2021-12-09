@@ -143,3 +143,81 @@ Route peut etre utiliser dans un composant normal
 	<Route path={`/products/${id}/comments`}>
 			<Comment />
 	<Route/>
+
+Ajout d'une page NOT FOUND
+	ajouter une route à la fin du switch avec path = *. l'etoile signie n impore quelle adresse affichera le composant
+	
+	```
+	<Switch>
+		<Route path='/products' exact>
+			<Product />
+		<Route/>
+		<Route path='/products/:productId'>
+			<Details />
+		<Route/>
+		<Route path='*'>
+			<NOTFOUND />
+		<Route/>
+	</Switch>
+	```
+
+cmt rediriger la page une fois info postées ?: useHistory de react-router-dom
+```
+	import {useHistory} from 'react-router-dom';
+	const history = useHistory();
+```	
+	history.push('/quote') => prends une URL
+	
+	- push : une fois redirigé, on peut revenir en arriere
+	- replace : une fois redirigé, impossible de revenir en arriere
+
+Comment lever une pop lorque qu'on revient sur la page precedent ? utiliser le composant Prompt de 'react-router-dom'
+	- il detecte si on navigue sur une autre page et levera un avertissement sous certaine condition
+
+```
+	import {Prompt} from 'react-router-dom';
+	
+	[entering, setEntering] = useState(false);
+	const onFucusHandler = () => setEntering(true);
+
+	
+	<Fragment>
+		<Prompt when={entering} message={(location) => 'You want to leave?';}
+		<form onFocus={onFucusHandler}>
+		</form>
+	</Fragment>
+```	
+	OnFocus: qd on clique sur un element du form, la fonction est appelée. ICi on dit que un element du form a été touché. Si le userclique sur retour, une alerte
+	se levera pr dire: You want to leave ?
+
+Comment obtenr l'URL courant ? utiliser use Location de 'react-router-dom'
+```
+	 const location = useLocation();
+	 
+	 const param = new URLSearchParams(location.search) => on obtient une map contenant les attribut optional d'une URl (ceux apres le point d'interrogation)
+	 param.get('sort')
+```
+
+Comment recuperer l'URL tel qu on le definit dans le code : comment recuperer '/products/:productId' dynamiquement.
+	- useRouteMatch
+
+```
+	const match = useRouteMatch();
+	<Route path='${match.path}' exact>
+			<Details />
+	<Route/>
+```
+	- cela evite de reecrire '/products/:productId' dans les route qui sont dans des composants.
+	- par example j ai fait un composant 'produits' avec des link et chaque link mene a une autre ex:'produits/1'
+	- je souhaite changer dans 'produits' par 'produit'(sans 's'). Dans le switch je le change et je devrai le faire partout dans le composant.
+	ce hook permet de ne faire le changement que dans le switch car match.path retourne la chainz 'produit/:productId'
+
+Cas particulier : peut prendre un object en input History.push
+
+```
+	history.push({
+		pathname: location.pathname,
+		search: 'sort?asc'
+	})
+```	
+On peut ecrire du code JSX entre les routes plutot que d'appeler un Composant
