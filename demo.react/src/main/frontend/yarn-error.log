@@ -1,0 +1,70 @@
+Arguments: 
+  C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\node.exe C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\yarn\dist\bin\yarn.js
+
+PATH: 
+  C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\yarn\dist\bin;C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Users\kevin.moustin\Documents\Developpement\outils\apache-maven-3.8.2\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Users\kevin.moustin\Documents\Developpement\outils\nodejs\;C:\Program Files\TortoiseGit\bin;C:\Program Files (x86)\GitExtensions\;C:\Program Files\PuTTY\;C:\Users\kevin.moustin\AppData\Local\Microsoft\WindowsApps;C:\Users\kevin.moustin\AppData\Local\Programs\Git\cmd;C:\Users\kevin.moustin\AppData\Roaming\npm;C:\Users\kevin.moustin\AppData\Local\atom\bin;C:\Users\kevin.moustin\AppData\Local\Microsoft\WindowsApps;;C:\Users\kevin.moustin\AppData\Local\Programs\Microsoft VS Code\bin;
+
+Yarn version: 
+  1.12.1
+
+Node version: 
+  14.17.6
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\package.json: Unexpected token } in JSON at position 535
+      at JSON.parse (<anonymous>)
+      at C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\yarn\dist\lib\cli.js:1166:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\yarn\dist\lib\cli.js:92:30)
+      at C:\Users\kevin.moustin\Documents\Developpement\workspace\demo.react\src\main\frontend\node\yarn\dist\lib\cli.js:103:13
+
+npm manifest: 
+  {
+    "name": "react-complete-guide",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+      "@testing-library/jest-dom": "^5.11.6",
+      "@testing-library/react": "^11.2.2",
+      "@testing-library/user-event": "^12.5.0",
+      "react": "^17.0.1",
+      "react-dom": "^17.0.1",
+      "react-router-dom": "^5.3.0",
+      "react-scripts": "4.0.1",
+      "web-vitals": "^0.2.4"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "proxy": "http://localhost:8070"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
