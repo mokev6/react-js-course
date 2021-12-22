@@ -221,3 +221,131 @@ Cas particulier : peut prendre un object en input History.push
 	})
 ```	
 On peut ecrire du code JSX entre les routes plutot que d'appeler un Composant
+
+react router 6
+	npm install react-router-dom@6 or npm install react-router-dom@latest
+	- remplacer Switch par Routes
+	
+	```
+		<Switch>
+			<Route path='${match.path}' exact>
+				<Details />
+			<Route/>
+		</Switch>
+	```
+		devient
+	```	
+		<Routes>
+			<Route path='${match.path}' element= {<Details/>} />
+		</Routes>
+	```	
+		- Dans element on passe le JSX (ce n'est pas un pointeur sur le composant)
+		- 'exact' n est plus necessaire, il match le path. plus besoin de les structuré dans un certain ordre
+		
+	- NavLink
+		- activeclassname remplacé par className, et prend une fonction en parametre
+		```
+			 <NavLink to='/welcome' activeClassName={}> Welcome </NavLink>
+		```
+				remplacé par 
+		```	
+			<NavLink className={(navData) => navData.isActive ? class.active : ''} to='/welcome' />
+				Welcome
+				</NavLink>
+		```
+		
+	- Redirect est remplacé par Navigate replace : ajouter replace pour changer la page. on peut ne pas le mettre ms c est diff
+		```
+		<Route path='/' exact>
+			<Redirect to='/welcome' />
+		<Route/>
+		```
+		
+		devient 
+		
+		```
+		<Route path='/' element={<Navigate replace to='/welcome' />} />
+		```
+		
+	- obligation de wrapper toutes les Route par Routes ce qui n'etait pas obligatoire sur la version 5
+	- si je souhaite visiter /welcome/new-user , et qu'il fait reference a un composant imbriqué : rajouter une etoile
+		```
+		<Routes>
+			<Route path='/welcome/*' element= {<Welcome/>} />
+		</Routes>
+		```
+		puis dans le composant Welcome (cad le composant imbriqué)
+		```
+		<Routes>
+			<Route path='new-user' element= {<p> coucou </p>} />
+		</Routes>
+		```
+		
+		inutile dans le composant imbriqué, de faire /welcome/new-user. on utilise le chemin relatif. Idem pour les link imbriqué
+		match.path est inutile
+	
+	- les route imbriqué n'ont plus besoin d'etre dans le composant imbriqué. on peut les mettre avec les routes principales
+	```
+		<Routes>
+			<Route path='/welcome/*' element= {<Welcome/>}>
+				<Route path='new-user' element= {<p> Coucou</p>} />
+			</Route>
+		</Routes>
+	```
+		- on obtient toutes les routes a un seul endroit plutot d etre dispersé partout
+	
+	- mais comment savoir ou cette route doit etre mise dans le composant imbriqué ? => utilisation de Outlet
+	- rajouter <Outlet /> dans le composant et react injectera . 
+	- recaptilatif: je mets <Outlet> dans le composant Welcome et qd je clique dans le composant Welcome sur la route /welcome/new-user, ca affichera coucou
+	
+	- useNavigate remplace useHistory
+	- useNAvigate(-1) : previsous page
+	- useNavigate(-2) : previsous page of the previous page
+	- useNavigate (1) : next page 
+	- il fait d autre choses 
+
+	- <Prompt /> n existe pas, on doit creer notre propre feature : rester en 5 si c est super important et que j ai la flemme de le dev
+	
+	-Lazy Loading: chargé certaine partie du code qd on en a besoin car sans ca tous le code javascript est chargé.
+	
+	```
+	import Quotes from './Quotes';
+	
+	const Welcome = () => {
+		return (
+			<Quotes />
+		);
+	}
+	```
+	
+	devient
+	```
+	import React from 'react';
+	const Quotes = React.lazy(() => import('./Quotes');
+	
+	const Welcome = () => {
+		return (
+			<Quotes />
+		);
+	}
+	```
+	Il telechargera le code qd il en a besoin
+	
+	/!\ : on peut obtenir une erreur car le telechargmenet du composant peut prendre du tps. 
+	Pour résoudre ca : utilisation de Suspense
+	
+	```
+	import React, {Suspense} from 'react';
+	const Quotes = React.lazy(() => import('./Quotes');
+	
+	const Welcome = () => {
+		return (
+			<Suspense fallback={<LoadingSpinner}>
+				<Quotes />
+			<Suspense>
+		);
+	}
+	```
+	
+	utiliser Suspense et dans la propriete fallback, mettre du code JSX. Exemple on peut mettre une composant faisant un spinner. Ca affichera un spinner dans le composant n est pas
+	totalement chargé
