@@ -1,83 +1,120 @@
-npx create-react-app my-app : creation d'une app React
+Unit Test
 
-npm install react-redux
+- Jest : pour executer les test et assert les resultats
+- React testing library : pour simuler l application React
+- outils dispo par defaut lorsque fait npx create-react-app cf : voir dans packahe.json
 
-npm install @reduxjs/toolkit
-
-2) creer un repertoire store
-3) store >
-   - index.js => fichier qui contient les données du store
-   - car-slice.js
-   - UI-slice.js : les slices sont les fichiers qui contient les reducer propre à des component
-
-4) dans chaque slice
-	appeler createSlice de react toolkit
-	et l'initialiser avec l'etat de depart
+Convention de nommage:
+	- si je test App.js le test s appelle App.test.js
 
 ```
-	import {createSlice} from '@reduxjs/toolkit';
+
+import {render, screen} from '@testing-library/react';
+import Greeting from './Gretting'
+
+test('renders Hello World', () => {
+	// arrange
+	render(<Greeting />);
 	
-		const uiSlice = createSlice({
-			name: 'ui',
-			initialState: {cartIsVisible: false}
-			reducers: {
-				toggle(state) {
-					state.cartIsVisible = ! state.cartIsVisible;
-				}
-			}
-		})
-		
-		export const UIAction = uiSlice.actions;
-		export default uiSlice;
-```
-5) creer le store (index.js)et ajouter le reducer de la slice precedente
-```
-    import {configureStore} from '@reduxjs/toolkit';
-    import uiSlice from 
-
-    const store = configureStore({
-    reducer:{ui: uiSlice.reducer}
-})
-export default store;
-```
-6) ajouter le store dans le index.js du root de l'appli
-```
-    import {Provider} from 'react-redux'
-    import store from 
-
-    <Provider store = {store}> <App/> </Provider>
+	// act
+	
+	//assert
+	const helloWorld = screen.getByText('Hello World');
+	expect(helloWorld).toBeInTheDocument();
+	
+});
 
 ```
-7) utiliser les actions dans un composant
-```
-    import {uiAction} from 
-    import {useDispatch} from 'react-redux'
 
-    const dispatch = useDispatch()
-
-    const XXX = () => {
-        dispatch(uiAction.toggle()); => appelle de la fonction du reducer
-    }
-```
-8) acceder a une variable d etat du store depuis un composant
-
-utiliser useSelector et 
-const test = useSelector(state => state.ui.cartIsVisible} tjr utilise state puis le nom donné au reducer dans le store, puis la variable
-
-/!\ : dans les slice, si je souhaite creer un reducer qui recoit des données, ajouter un parametre nommé action. il contient un attribut appelé payload
+- executer les tests avec npm test 
+- test et expect sont accessibles sans import
+- screen permet d accer au DOM virtuel : on peut trouver des elements sur le dom
+	- contient pas mal de fonctions 
+- describe() : utile pour grouper des tests
 
 ```
-ex: createSlice({
-name: 'cart',
-initialState: {
-	items: []
-}
-reducers: {
-	addItem(state, action) {
-		
-	},
-	remove () {
-	}
-}
-})
+
+	- describe('my grouping test', () => {
+		test('renders Hello World', () => {
+			// arrange
+			render(<Greeting />);
+			
+			// act
+			
+			//assert
+			const helloWorld = screen.getByText('Hello World');
+			expect(helloWorld).toBeInTheDocument();
+	
+		});
+	})
+
 ```
+
+- userEvent: 
+	- objet permettant de simuler des actions utilisateurs : cliquer sur un bouton ...
+	- disponible dans la librairie @testing-library/user-event
+```
+	import userEvent from '@testing-library/user-event'
+
+	test('renders Hello World', () => {
+			// arrange
+			render(<Greeting />);
+			
+			// act
+			const buttonElement = screen.getByRole('button') => recupere l unique bouton du composant Greeting
+			userEvent.click(buttonElement) => click sur le bouton et declenche l evenement lié
+			
+			//assert
+			// verifie que le texte est present
+			const helloWorld = screen.getByText('Hello World');
+			expect(helloWorld).toBeInTheDocument();
+			
+			// verifie que le texte n est pas present
+			const helloWorld = screen.queryByText('Hello World', {exact: false}); => retourne null si le texte n hesite pas
+			expect(helloWorld).toBeNull(); => utiliser tobenull
+	
+		});
+
+```
+
+screen contient des methodes commecant par find et par get
+- la difference : find reevalue le composant alr que get non
+- si mon composant effectue un appel asynchrone, et que je souhaite verifier le resultat de l appel, avec get il echouera car l appel prend qq millisec/ sec.
+- find retourne une promesse (ce que l on souhaite en asynchrone)
+- utilisation de async/await
+
+```
+	test('renders Hello World', async () => {
+			// arrange
+			render(<Async />);
+			
+			const list = await screen.findAllByRole('listItem');
+			expect(list).not.toHaveLength(0);
+	
+		});
+
+```
+
+Mock :
+- mon composant appelle fetch => comment mock cet appel
+- window.fetch pour simuler le fetch(), on lui affecte jest.fn(). cette methode crée un mock
+- window.fetch.mockResolvedValueOnce(); on sette une valeur qd le fetch est appelé.
+- la valeur settée ici est un object contenant un attribut json qui retourne une fonction async => promesse
+
+```
+	test('renders Hello World', async () => {
+			// arrange
+			window.fetch = jest.fn();
+			window.fetch.mockResolvedValueOnce({
+				json: async () => [{id:1, title: 'toto'}]
+			});
+			render(<Async />);
+			
+			const list = await screen.findAllByRole('listItem');
+			expect(list).not.toHaveLength(0);
+	
+		});
+```
+
+- Pour plus d info sur les TU, voir le site de Jest
+- react-hooks-testing-library : pour tester les custom hooks
