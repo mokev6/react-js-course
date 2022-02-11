@@ -1,0 +1,15 @@
+export const TRANSLATIONS_FR = {
+    welcome: "Bienvenue",
+    toProcess: "A Traiter",
+    inProgress: "En cours",
+    language: "Langue",
+    error404: "La page n'existe pas.",
+    backHome: "Retour à l'accueil",
+    omTitre: "OM",
+    singnataireTitre: "Signataire",
+    lmTitre: "Négociateur",
+    searchTermsheet: "Rechercher une fiche",
+    enterTermsheetId: "Entrer le numéro d'une fiche",
+    termsheet: "Fiche",
+    loading:"chargement",
+};
