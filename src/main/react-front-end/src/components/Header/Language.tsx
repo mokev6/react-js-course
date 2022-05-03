@@ -1,4 +1,4 @@
-import React from 'react';
+import '../../translations/i18n';
 import 'flag-icon-css/css/flag-icons.min.css';
 import i18n from "i18next";
 import { useTranslation } from 'react-i18next';
@@ -19,8 +19,8 @@ const languages = [
 
 function Language() {
 
-    const { t } = useTranslation();
-    const changeLanguageHandler = code => i18n.changeLanguage(code);
+    const { t } = useTranslation('common');
+    const changeLanguageHandler = (code: string) => i18n.changeLanguage(code);
     const currentLanguage = cookie.get('i18next') || 'en';
 
     return (

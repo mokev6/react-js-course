@@ -1,0 +1,25 @@
+{
+    "common" : {
+        "welcome":"Welcome",
+        "language":"Language",
+        "enterTermsheetId": "Enter termsheet number",
+        "termsheet": "Termsheet",
+        "loading":"loading"
+    },
+    "sideNav" : {
+        "omTitre":"OM",
+        "singnataireTitre":"Signatory",
+        "lmTitre":"Leasing Manager",
+        "toProcess":"To Process",
+        "inProgress":"In Progress"
+    },
+    "searchBar" : {
+        "searchTermsheet": "Search"
+    },
+    "notFound": {
+        "error404":"The page you are looking for doesn't exist.",
+        "backHome":"Back to home"
+    },
+    "toProcess":"To Process"
+
+}

@@ -1,4 +1,3 @@
-import React from 'react';
 import HeaderDropDownDivider from "./HeaderDropDownDivider";
 import HeaderItem from "./HeaderItem";
 import Language from './Language';

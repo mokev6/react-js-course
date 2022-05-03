@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 function SignatoryInProgress() {
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('sideNav');
 
   return (
     <div>

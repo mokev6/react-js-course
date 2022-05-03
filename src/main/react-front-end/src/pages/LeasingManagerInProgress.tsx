@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 function LeasingManagerInProgress() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('sideNav');
     console.log('ghdfkjghfdk')
 
     return (

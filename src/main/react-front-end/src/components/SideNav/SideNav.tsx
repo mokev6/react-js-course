@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 function SideNav() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('sideNav');
 
     console.log("nav")
 

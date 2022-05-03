@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 function LeasingManagerToProcess() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('sideNav');
 
     return (
         <div>

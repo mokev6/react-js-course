@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-function Content(props) {
+type Props = PropsWithChildren<{
 
-console.log('content')
+}>
+
+const Content = (prop :Props) => {
+
+    console.log('content')
 
     return (
         <div id="main" className="main">
@@ -11,7 +15,7 @@ console.log('content')
             </div>
             <section className='section dashboard'>
                 <div className='row'>
-                    {props.children}
+                    {prop.children}
                 </div>
             </section>
         </div>

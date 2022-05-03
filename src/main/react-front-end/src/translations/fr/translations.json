@@ -1,0 +1,24 @@
+{
+    "common" : {
+        "welcome": "Bienvenue",
+        "language": "Langue",
+        "enterTermsheetId": "Entrer le numéro d'une fiche",
+        "termsheet": "Fiche",
+        "loading":"chargement"
+    },
+    "sideNav" : {
+        "omTitre": "OM",
+        "singnataireTitre": "Signataire",
+        "lmTitre": "Négociateur",
+        "toProcess": "A Traiter",
+        "inProgress": "En cours"
+    },
+    "searchBar" : {
+        "searchTermsheet": "Rechercher une fiche"
+    },
+    "notFound": {
+        "error404": "La page n'existe pas.",
+        "backHome": "Retour à l'accueil"
+    }
+    
+}

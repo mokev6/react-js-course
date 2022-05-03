@@ -5,6 +5,7 @@ import OMInProgress from "./pages/OMInProgress";
 import SignatoryToProcess from "./pages/SignatoryToProcess";
 import SignatoryInProgress from "./pages/SignatoryInProgress";
 
+
 export const leasingManagerRoutes = [
     {path:'/leaseit/leasingmanager/toprocess', name:'toProcess', component: <LeasingManagerToProcess />},
     {path:'/leaseit/leasingmanager/inprogress', name:'inProgress', component: <LeasingManagerInProgress />},

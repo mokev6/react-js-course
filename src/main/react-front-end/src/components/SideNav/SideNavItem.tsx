@@ -1,11 +1,17 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import '../../translations/i18n';
 import { NavLink } from 'react-router-dom';
+import SideNavLabel from './SideNavLabel';
 
-function SideNavItem(props) {
+const SideNavItem: React.FC<{title: string, navName: string, links: {
+  path: string;
+  name: string;
+  component: JSX.Element;
+}[]}
+> = (props) => {
 
-  const { t } = useTranslation();
   console.log('nav item')
+  
   return (
     <li className="nav-item">
       <a className="nav-link collapsed" data-bs-target={`#${props.navName}`} data-bs-toggle="collapse" >
@@ -15,8 +21,8 @@ function SideNavItem(props) {
         {
           props.links && props.links.map((route, idx) =>
             <li key={idx}>
-              <NavLink to={route.path}>
-                <i className="bi bi-circle" /><span>{t(route.name)}</span>
+              <NavLink to={route.path} key={idx}>
+                <SideNavLabel name={route.name}/>
               </NavLink>
             </li>
           )

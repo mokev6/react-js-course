@@ -1,4 +1,3 @@
-import React from 'react';
 import SideBarButton from "./SideBarButton";
 import { NavLink } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ function Logo() {
     return (
         <div className="d-flex align-items-center justify-content-between">
             <NavLink to={'/leaseit'} className={'logo d-flex align-items-center'} >
-                <img src="/assets/img/logo.png" />
+                <img src="/assets/img/logo.png" alt="image"/>
                 <span className="d-none d-lg-block">Leaseit</span>
             </NavLink>
             <SideBarButton />

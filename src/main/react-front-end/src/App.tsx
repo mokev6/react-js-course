@@ -13,7 +13,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />} >
         <Route path='leaseit' element={<Welcome />} />
-        <Route path='/leaseit/saml/SSO' element={<Welcome />} />
         {
           routes.map((route, idx) => <Route key={idx} path={route.path} element={route.component} />)
         }

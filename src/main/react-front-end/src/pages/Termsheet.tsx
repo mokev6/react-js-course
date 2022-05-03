@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import cookie from "js-cookie";
 
 function Termsheet() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const lang = cookie.get("i18next");
 
   const [termsheet, setTermsheet] = useState({
@@ -24,8 +24,7 @@ function Termsheet() {
       setIsLoading(true);
       setError(false);
 
-    const test = `http://localhost:8070/api/termsheet/${id}`;
-      await fetch(`/termsheet/${id}`)
+      await fetch("/termsheet/" + id)
         .then((response) => {
           if (!response.ok) {
             throw response;
@@ -46,17 +45,17 @@ function Termsheet() {
         <div className="card-body">
           <h5 className="card-title">Default Card</h5>
           <span>
-            {t("termsheet")} : {termsheet.id}
+            {t('termsheet')} : {termsheet.id}
           </span>
           <br />
           <span>{termsheet.type}</span>
           <br />
-          <span>{termsheet.sousType}</span>
+          <span>{termsheet.ssType}</span>
         </div>
       )}
       {isLoading && (
-        <div class="spinner-border text-secondary" role="status">
-          <span class="visually-hidden">{t("termsheet")}...</span>
+        <div className="spinner-border text-secondary" role="status">
+          <span className="visually-hidden">{t('termsheet')}...</span>
         </div>
       )}
       {error && <p>existe pas</p>}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function NotFound() {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation('notFound');
 
     return (
         <div className="container">
