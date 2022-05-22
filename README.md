@@ -5,13 +5,13 @@ npm install react-redux
 npm install @reduxjs/toolkit
 
 Regles generales:
-	- reducer: methode qui execute qqch sur un state
-	- store: enregistre tous les reducer
-	- composant: subscribe au store
-	- dispatcher: appelle le reducer et donc modifie le state
+- reducer: methode qui execute qqch sur un state
+- store: enregistre tous les reducer
+- composant: subscribe au store
+- dispatcher: appelle le reducer et donc modifie le state
 	
-	- useSelector: permet au composant de subscribe au store et de recuperer l etat definit dans le reducer
-	- useDispatch: execute un reducer du store depuis un composant
+- useSelector: permet au composant de subscribe au store et de recuperer l etat definit dans le reducer
+- useDispatch: execute un reducer du store depuis un composant
 
 2) creer un repertoire store
 3) store >
