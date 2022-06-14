@@ -35,3 +35,5 @@ i18n.use(initReactI18next)
       caches: ['cookie'],
     },
   });
+
+  export default i18n;

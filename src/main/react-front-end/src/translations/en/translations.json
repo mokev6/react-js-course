@@ -20,6 +20,11 @@
         "error404":"The page you are looking for doesn't exist.",
         "backHome":"Back to home"
     },
-    "toProcess":"To Process"
+    "toProcess":"To Process",
+    "termsheet" : {
+        "termsheetTabContract": "Contract",
+        "termsheetTabRentalUnit": "Rental Unit",
+        "termsheetTabCondition": "Conditions"
+    }
 
 }

@@ -1,10 +1,15 @@
 package com.react.back.end.bo;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Termsheet {
 	private Long id;
 	private String type;
 	private String sousType;
+
+	private List<PrecedentCondition> precedentConditions = new ArrayList<>();
 	
 	
 	
@@ -38,6 +43,12 @@ public class Termsheet {
 	public void setSousType(String sousType) {
 		this.sousType = sousType;
 	}
-	
-	
+
+	public List<PrecedentCondition> getPrecedentConditions() {
+		return precedentConditions;
+	}
+
+	public void setPrecedentConditions(List<PrecedentCondition> precedentConditions) {
+		this.precedentConditions = precedentConditions;
+	}
 }

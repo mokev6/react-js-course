@@ -19,6 +19,11 @@
     "notFound": {
         "error404": "La page n'existe pas.",
         "backHome": "Retour à l'accueil"
+    },
+    "termsheet" : {
+        "termsheetTabContract": "Contrat",
+        "termsheetTabRentalUnit": "Locaux",
+        "termsheetTabCondition": "Conditions"
     }
     
 }
