@@ -1,18 +1,8 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { PrecedentConditionType } from '../model/PrecedentConditionType';
+import { TermsheetType } from '../model/TermsheetType';
 
-type Termsheet = {
-    id: number;
-    type: string;
-    sousType: string;
-    precedentConditions: PrecedentCondition[]
-}
-
-type PrecedentCondition = {
-    id: number,
-    name: string
-}
-
-const initialTermsheet : Termsheet = {
+const initialTermsheet : TermsheetType = {
     id: 1,
     type: '',
     sousType: '',
@@ -24,21 +14,21 @@ const termsheetSlice = createSlice({
     initialState: { termsheet : initialTermsheet},
     reducers: {
         update(state, action) {
-            console.log(action) 
             state.termsheet = action.payload;
         },
         addPrecedentcondition(state) {
-            const newPc : PrecedentCondition = {
+            const newPc : PrecedentConditionType = {
                 id: 1,
                 name: ''
             };
-            console.log(state.termsheet.precedentConditions)
             state.termsheet.precedentConditions = [...state.termsheet.precedentConditions, newPc];
         },
         removePrecedentCondition(state, action) {
-            console.log(action)
             const index : number = action.payload;
             state.termsheet.precedentConditions.splice(index, 1);
+        },
+        updatePrecedentCondition(state, action) {
+            state.termsheet.precedentConditions[action.payload.idx] = action.payload.pc;
         }
     }
 })

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { termsheetAction, RootState, AppDispatch } from '../store/index'
+import { PrecedentConditionType } from '../model/PrecedentConditionType';
 import PrecedentCondition from './PrecedentCondition';
 
 function TermsheetTabContract() {
@@ -11,9 +12,14 @@ function TermsheetTabContract() {
         dispatch(termsheetAction.addPrecedentcondition());
     }
 
-    const removePrecedentConditionHandler = (id: number) => {
-        dispatch(termsheetAction.removePrecedentCondition(id));
+    const removePrecedentConditionHandler = (idx: number) => {
+        dispatch(termsheetAction.removePrecedentCondition(idx));
      }
+
+     const updatePrecedentConditionHandler = (idx: number, pc: PrecedentConditionType) => {
+         dispatch(termsheetAction.updatePrecedentCondition({idx: idx, pc: pc}))
+     }
+
 
     return (
         <>
@@ -24,7 +30,7 @@ function TermsheetTabContract() {
                 </button>
 
                 {
-                    termsheet.precedentConditions.map((value, idx) => <PrecedentCondition key={idx} idx={idx} removeFunction={removePrecedentConditionHandler} />)
+                    termsheet.precedentConditions.map((pc, idx) => <PrecedentCondition key={idx} idx={idx} removeFunction={removePrecedentConditionHandler} updatePc={updatePrecedentConditionHandler} currentPc={pc} />)
                 }
             </div>
         </>
